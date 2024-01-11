@@ -1,16 +1,14 @@
 /*
-The database has been created graphically using the "New Database" tool.
+The database has been created graphically using the "New Database" tool. The original data table can be found here:
+https://datafrik.co/#/datasets
+ */
 
-This is the original data table:
-*/
-
-
+-- View the data table
 SELECT * FROM Hotel
 
 
 /*
-Now, the data table has to be normalized to reduce data redundancy
-and improve performance. To do this, 6 relations will be created to
+Now, the data table has to be normalized to reduce data redundancy and improve performance. To do this, 6 relations will be created to
 contain information on:
 
 - Customers
@@ -158,11 +156,6 @@ SELECT DISTINCT [Bank Name]
 FROM Hotel;
 
 
--- Create new columns called BankId
-ALTER TABLE Hotel
-ADD BankId INT
-
-
 -- Insert BankId values into Hotel table
 UPDATE Hotel
 SET Hotel.BankId = Banks.BankId
@@ -198,7 +191,7 @@ SELECT
 FROM
 	Bookings;
 
-
+-- Insert data into Payments table
 UPDATE Payments
 SET Payments.ModeId = Hotel.ModeId,
 	Payments.BankId = Hotel.BankId,
@@ -234,10 +227,8 @@ JOIN Payments P ON B.BookingId = P.BookingId;
 
 
 /*
-The tables have been created and populated with data from the original table.
-
-The equivalent database diagram has now been created to show the relationships
-between tables.
+The tables have been created and populated with data from the original table. The equivalent database diagram has now been 
+created to show the relationships between tables.
 
 Analysis can now begin to answer the business questions
 */
@@ -249,14 +240,16 @@ SELECT MIN(Age) AS Youngest,
 FROM Customers;
 
 
--- There is a negative age value, hence, rows with negative age values
---  have to be dropped. The entries have to be dropped in related tables as well
+/* There is a negative age value, hence, rows with negative age values have to be dropped. The entries have to be dropped in
+related tables as well  */
+
 DELETE FROM Bookings
 WHERE CustomerId IN (SELECT CustomerId FROM Customers WHERE Age < 0);
 
 DELETE FROM Customers
 WHERE Age < 0
 
+-- View the tables
 SELECT * FROM Banks
 SELECT * FROM Bookings
 SELECT * FROM Customers
