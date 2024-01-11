@@ -12,3 +12,5 @@ This involved defining primary and foreign keys to establish relationships betwe
 ## Implementation
 Throughout the entire process, SQL queries and tools were leveraged to implement the designed schema.
 The outcome is a fully functional database, ready for practical application, and data import.
+
+![Database diagram](https://github.com/TobyTobi/Database-design-and-normalization-for-DatAfrik-Hotel-data/assets/102298244/9f09a671-6d12-41b9-b984-2a9f1571592f)
